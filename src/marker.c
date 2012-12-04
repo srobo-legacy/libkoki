@@ -201,6 +201,7 @@ static GPtrArray* find_markers( koki_t *koki,
 	koki_quad_t *quad;
 	koki_marker_t *marker;
 	GPtrArray *markers = NULL;
+	IplImage *contours = NULL, *disc_contours = NULL;
 
 	assert(frame != NULL && frame->nChannels == 1);
 
@@ -211,6 +212,21 @@ static GPtrArray* find_markers( koki_t *koki,
 
 	if (labelled_image == NULL)
 		return NULL;
+
+	if (koki_is_logging(koki) ) {
+		const CvScalar black = {0,0,0,0};
+
+		/* Create images of contours and discarded contours */
+		contours = cvCreateImage( cvSize( frame->width, frame->height ),
+					  IPL_DEPTH_8U, 3 );
+
+		disc_contours = cvCreateImage( cvSize( frame->width, frame->height ),
+					       IPL_DEPTH_8U, 3 );
+
+		/* Set both to be black */
+		cvSet( contours, black, NULL );
+		cvSet( disc_contours, black, NULL );
+	}
 
 	/* init markers array */
 	markers = g_ptr_array_new();
@@ -229,9 +245,15 @@ static GPtrArray* find_markers( koki_t *koki,
 		quad = koki_quad_find_vertices(contour);
 
 		if (quad == NULL){
+			if( disc_contours != NULL )
+				koki_contour_draw( disc_contours, contour );
+
 			koki_contour_free(contour);
 			continue;
 		}
+
+		if( contours != NULL )
+			koki_contour_draw( contours, contour );
 
 		/* refine vertices */
 		koki_quad_refine_vertices(quad);
@@ -272,6 +294,16 @@ static GPtrArray* find_markers( koki_t *koki,
 
 	/* clean up */
 	koki_labelled_image_free(labelled_image);
+
+	if( contours != NULL ) {
+		koki_log( koki, "Contours", contours );
+		cvReleaseImage( &contours );
+	}
+
+	if( disc_contours != NULL ) {
+		koki_log( koki, "Discarded Contours", disc_contours );
+		cvReleaseImage( &disc_contours );
+	}
 
 	return markers;
 }
