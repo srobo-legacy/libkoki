@@ -1,0 +1,8 @@
+Change-Id: I460bcf512e6f01acd45013c34c5cf1d7bec85791
+Code-Review+2: Richard Barlow <richard@richardbarlow.co.uk>
+Verified+1: Richard Barlow <richard@richardbarlow.co.uk>
+Submitted-by: Richard Barlow <richard@richardbarlow.co.uk>
+Submitted-at: Sun, 27 Jan 2013 23:14:23 +0000
+Reviewed-on: https://www.studentrobotics.org/gerrit/248
+Project: libkoki
+Branch: refs/heads/master
