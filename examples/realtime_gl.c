@@ -178,6 +178,7 @@ void display()
 	/* get markers */
 	GPtrArray *markers = koki_find_markers(koki, gs, 0.11, &params);
 
+	printf("---------------------------------\n\n");
 	//printf("num markers: %d\n", markers->len);
 
 	/* draw markers */
