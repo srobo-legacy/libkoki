@@ -217,7 +217,11 @@ IplImage *koki_code_sub_image(IplImage *unwarped_frame)
  * macros defined above.
  *
  * @param grid   the grid to extract the rotations from
- * @param codes  the array to store the results in
+ * @param codes  the array to store the results in; the result for no
+ *               rotation will be stored in \c codes[0], the result for a
+ *               90-degree rotation will be stored in \c codes[1], the
+ *               result for a 180-degree rotation in \c codes[2] and
+ *               result for a 270-degree rotation in \c codes[3].
  */
 static void code_rotations(koki_grid_t *grid, uint8_t codes[4][5])
 {
