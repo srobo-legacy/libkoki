@@ -86,7 +86,7 @@ IplImage* grab_frame()
 
 void draw_marker(koki_marker_t *marker)
 {
-
+	// Rotate the marker to match the rotated grid it relates to
 	for (int i=0; i < (int)marker->rotation_offset / 90; i++){
 		koki_point2Df_t tmp;
 		tmp = marker->vertices[0].image;
