@@ -209,7 +209,7 @@ IplImage *koki_code_sub_image(IplImage *unwarped_frame)
  *
  * For a single code, there are 5 blocks.  The top left of the marker
  * \c (0, 0) contains block 0 bit 0, \c (1, 0) contains block 1 bit 0, etc...
- * \c (5, 0) would contain block 0 bit 1, \c (0, 1) would contain block 1 bit
+ * \c (0, 1) would contain block 0 bit 1, \c (1, 1) would contain block 1 bit
  * 1, etc...  This line-by-line continues until the last bit \c (5, 5) which
  * is left unused.
  *
